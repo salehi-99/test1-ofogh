@@ -11,32 +11,32 @@ class UpdateUserInfo(forms.ModelForm):
         required=False
     )  
     address1 = forms.CharField(
-                label="",
+        label="",
         widget=forms.TextInput(attrs={'class':'form-control','placeholder':'آدرس اول'}),
         required=False
     ) 
     address2 = forms.CharField(
-                label="",
+        label="",
         widget=forms.TextInput(attrs={'class':'form-control','placeholder':'آدرس دوم'}),
         required=False
     )
     city = forms.CharField(
-                label="",
+        label="",
         widget=forms.TextInput(attrs={'class':'form-control','placeholder':'شهر'}),
         required=False
     ) 
     state =forms.CharField(
-                label="",
+        label="",
         widget=forms.TextInput(attrs={'class':'form-control','placeholder':'منطقه'}),
         required=False
     )
     zipcode = forms.CharField(
-                label="",
+        label="",
         widget=forms.TextInput(attrs={'class':'form-control','placeholder':'کد پستی'}),
         required=False
     )
     country =forms.CharField(
-                label="",
+        label="",
         widget=forms.TextInput(attrs={'class':'form-control','placeholder':'کشور'}),
         required=False
     )
@@ -123,11 +123,11 @@ class SignUpForm(UserCreationForm):
     username=forms.CharField(
         label="",
         max_length=20,
-        widget=forms.TextInput(attrs={'class':'form-control','placeholder':'نام کاربری خود را وارد کنید'})
+        widget=forms.TextInput(attrs={'class':'form-control','placeholder': 'نام کاربری  8 کاراکتر خود را وارد کنید '})
     )
     password1=forms.CharField(
         label="",
-        widget=forms.PasswordInput(
+         widget=forms.PasswordInput(
             attrs={
                 'class':'form-control',
                 'name':'password',
@@ -148,7 +148,11 @@ class SignUpForm(UserCreationForm):
             }
         )
     )
-
+    
     class Meta:
         model = User
         fields=('first_name','last_name','email','username','password1','password2')
+
+    
+
+

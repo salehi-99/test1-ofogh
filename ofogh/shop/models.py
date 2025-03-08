@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 
 
 
+
 class Customer(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)

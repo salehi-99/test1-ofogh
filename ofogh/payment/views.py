@@ -3,8 +3,9 @@ from cart.cart import Cart
 from .forms import ShippingForm
 from .models import ShippingAddress,Order ,OrderItem
 from django.contrib import messages
-from shop.models import Product
+from shop.models import Product , Profile
 from django.contrib.auth.models import User
+
 
 def confirm_order(request):
     if request.POST:
@@ -90,6 +91,9 @@ def process_order(request):
             for key in list(request.session.keys()):
                 if key == 'session_key':
                     del request.session[key]
+
+            cu = Profile.objects.filter(user__id = request.user.id) 
+            cu.update(old_cart="")       
 
             messages.success(request,'سفارش شما ثبت شد')
             return redirect('home')

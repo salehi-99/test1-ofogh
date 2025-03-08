@@ -10,7 +10,32 @@ from django.db.models import Q
 import json
 from cart.cart import Cart
 from payment.forms import ShippingForm
-from payment.models import ShippingAddress , Order
+from payment.models import ShippingAddress , Order , OrderItem
+from django.core.exceptions import ValidationError
+
+BAD_WORDS=['java','badin']
+def validate_words(username):
+    if any([word in username.lower() for word in BAD_WORDS ]):
+        raise ValidationError('this is yeeeeesss worddd')
+    
+
+def order_details(request,pk):
+    if request.user.is_authenticated:
+        order = Order.objects.get(id=pk)
+        items = OrderItem.objects.filter(order=pk)
+
+        context = {
+            'order':order,
+            'items':items
+        }
+        return render(request, 'order_details.html', context)
+    else:
+        messages.success(request,'دسترسی به این صفحه امکان پذیر نمی باشد')
+        return redirect('home')
+    
+
+
+
 
 def user_orders(request):
     if request.user.is_authenticated:
@@ -111,6 +136,8 @@ def logout_user(request):
    messages.success(request, "با موفقیت خارج شدید")
    return redirect("home")
 
+
+
 def signup_user(request):
     form=SignUpForm()
     if request.method =="POST":
@@ -119,8 +146,10 @@ def signup_user(request):
             form.save()
             username=form.cleaned_data['username']
             password1=form.cleaned_data['password1']
+            
             user=authenticate(request, username=username , password=password1 )
             login(request , user)
+            
             messages.success(request,("اکانت شما ساخته شد") )
             return redirect("update_info")
         else:
