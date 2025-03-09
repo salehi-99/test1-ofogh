@@ -78,7 +78,7 @@ def update_info(request):
             return redirect('home')
         return render(request, 'update_info.html' , {'form':form, 'shipping_form':shipping_form})  
     else:
-        messages.success(request, 'ابتدا باید لاگین شوید')
+        messages.success(request, 'ابتدا باید وارد شوید')
         return redirect('home') 
     
 
@@ -122,7 +122,7 @@ def login_user(request):
             messages.success(request,("با موفقیت وارد شد") )
             return redirect("home")
         else:
-            messages.success(request,("اشکال در لاگین") )
+            messages.success(request,("نام کاربری و رمز عبور صحیح را وارد کنید"))
             return redirect("login")
     else:
         return render(request, 'login.html' )
@@ -173,7 +173,7 @@ def update_user(request):
             return redirect('home')
         return render(request, 'update_user.html' , {'user_form':user_form})  
     else:
-        messages.success(request, 'ابتدا باید لاگین شوید')
+        messages.success(request, 'ابتدا باید وارد شوید')
         return redirect('home') 
     
 def update_password(request):
@@ -197,7 +197,7 @@ def update_password(request):
             return render(request, 'update_password.html', {'form':form})
     
     else:
-        messages.success(request,' باید اول لاگین بشی')
+        messages.success(request,'  ابتدا باید وارد شوید')
         return redirect('home')    
     
 
