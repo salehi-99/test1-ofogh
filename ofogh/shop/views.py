@@ -13,10 +13,6 @@ from payment.forms import ShippingForm
 from payment.models import ShippingAddress , Order , OrderItem
 from django.core.exceptions import ValidationError
 
-BAD_WORDS=['java','badin']
-def validate_words(username):
-    if any([word in username.lower() for word in BAD_WORDS ]):
-        raise ValidationError('this is yeeeeesss worddd')
     
 
 def order_details(request,pk):
@@ -139,24 +135,29 @@ def logout_user(request):
 
 
 def signup_user(request):
-    form=SignUpForm()
-    if request.method =="POST":
-        form=SignUpForm(request.POST)
-        if form.is_valid:
-            form.save()
-            username=form.cleaned_data['username']
-            password1=form.cleaned_data['password1']
+    try:
+        form=SignUpForm()
+        if request.method =="POST":
+            form=SignUpForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username=form.cleaned_data['username']
+                password1=form.cleaned_data['password1']
             
-            user=authenticate(request, username=username , password=password1 )
-            login(request , user)
+                user=authenticate(request, username=username , password=password1 )
+                login(request , user)
             
-            messages.success(request,("اکانت شما ساخته شد") )
-            return redirect("update_info")
+                messages.success(request,("اکانت شما ساخته شد") )
+                return redirect("update_info")
+            else:
+                messages.success(request,("مشکلی در ثبت نام شما وجود دارد") )
+                return redirect("signup")
         else:
-            messages.success(request,("مشکلی در ثبت نام شما وجود دارد") )
-            return redirect("signup")
-    else:
-        return render(request, 'signup.html',{'form':form})
+            return render(request, 'signup.html',{'form':form})
+    except BaseException:
+        messages.success(request,("خطا : لطفا فیلدها را با دقت پر کنید و برای رمز عبور از حروف و اعداد با هم استفاده کنید") )
+        return redirect("signup")
+                
 
 
 

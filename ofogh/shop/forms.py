@@ -132,7 +132,7 @@ class SignUpForm(UserCreationForm):
                 'class':'form-control',
                 'name':'password',
                 'type':'password',
-                'placeholder':'رمز بالای 8 کاراکتر را وارد کنید'
+                'placeholder':'رمز بالای 8 کاراکتر (ترکیبی از حروف و اعداد) را وارد کنید'
             }
         )
     )
